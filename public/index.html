@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Meeting Notes Summarizer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <h1>Meeting notes summarizer</h1>
+      <p>Record audio or paste notes — get an AI summary instantly</p>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab active" id="tab-record" onclick="switchTab('record')">
+        <i class="ti ti-microphone"></i> Record
+      </button>
+      <button class="tab" id="tab-paste" onclick="switchTab('paste')">
+        <i class="ti ti-clipboard-text"></i> Paste notes
+      </button>
+    </div>
+
+    <!-- Record Panel -->
+    <div id="panel-record">
+      <div class="recorder-card" id="recorder-card">
+        <div class="card-top">
+          <div class="status-pill">
+            <span class="dot" id="status-dot"></span>
+            <span id="status-text">Ready</span>
+          </div>
+        </div>
+
+        <div class="waveform" id="waveform">
+          <div class="bar" style="height:8px"></div>
+          <div class="bar" style="height:14px"></div>
+          <div class="bar" style="height:20px"></div>
+          <div class="bar" style="height:12px"></div>
+          <div class="bar" style="height:28px"></div>
+          <div class="bar" style="height:10px"></div>
+          <div class="bar" style="height:24px"></div>
+          <div class="bar" style="height:18px"></div>
+          <div class="bar" style="height:32px"></div>
+          <div class="bar" style="height:16px"></div>
+          <div class="bar" style="height:22px"></div>
+          <div class="bar" style="height:9px"></div>
+          <div class="bar" style="height:15px"></div>
+          <div class="bar" style="height:26px"></div>
+          <div class="bar" style="height:10px"></div>
+          <div class="bar" style="height:19px"></div>
+          <div class="bar" style="height:30px"></div>
+          <div class="bar" style="height:13px"></div>
+          <div class="bar" style="height:21px"></div>
+          <div class="bar" style="height:8px"></div>
+        </div>
+
+        <div class="timer" id="timer">0:00</div>
+
+        <div class="controls">
+          <button class="btn-secondary" id="btn-reset" disabled onclick="resetRecording()">
+            <i class="ti ti-refresh"></i> Reset
+          </button>
+          <button class="btn-record" id="btn-record" onclick="toggleRecord()" aria-label="Start recording">
+            <i class="ti ti-microphone" id="rec-icon"></i>
+          </button>
+          <button class="btn-secondary" id="btn-summarize-rec" disabled onclick="summarizeFromRecording()">
+            Summarize ↗
+          </button>
+        </div>
+        <div id="rec-error" class="error-msg" style="text-align:center; margin-top:8px;"></div>
+      </div>
+
+      <div style="margin-bottom:8px">
+        <div class="section-title">Transcript</div>
+        <div class="transcript-area" id="transcript-box">Transcript will appear here as you speak…</div>
+      </div>
+    </div>
+
+    <!-- Paste Panel -->
+    <div id="panel-paste" style="display:none;">
+      <div class="recorder-card">
+        <div class="section-title">Paste your meeting notes or transcript</div>
+        <textarea id="manual-input" placeholder="Paste raw notes, bullet points, or a transcript here…"></textarea>
+        <button class="btn-secondary" onclick="summarizeManual()">Summarize ↗</button>
+      </div>
+    </div>
+
+    <!-- Summary Output -->
+    <div id="summary-section" style="display:none;">
+      <div class="summary-card">
+        <div class="summary-label"><i class="ti ti-sparkles"></i> AI summary</div>
+        <div id="summary-content" class="summary-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
